@@ -10,11 +10,13 @@
     .vue-tx td.text {
         white-space: pre-line;
     }
+
     .vue-tx .fail {
-        color:red;
+        color: red;
     }
+
     .vue-tx .success {
-        color:green;
+        color: green;
     }
 
 </style>
@@ -49,25 +51,30 @@
                             <span> pending </span>
                         </template>
                         <template v-else>
-                            <router-link v-if=tx.block v-bind:to='fragApi + "/block/" + tx.block.height'>{{tx.block.height}}</router-link>
+                            <router-link v-if=tx.block v-bind:to='fragApi + "/block/" + tx.block.height'>
+                                {{tx.block.height}}
+                            </router-link>
                         </template>
                     </td>
                 </tr>
                 <tr>
                     <td>TimeStamp:</td>
-                    <td>{{ timeConversion(Date.now() - tx.timestamp) }} ago ({{ new Date(tx.timestamp).toString() }} | {{ tx.timestamp }})
+                    <td>{{ timeConversion(Date.now() - tx.timestamp) }} ago ({{ new Date(tx.timestamp).toString() }} |
+                        {{ tx.timestamp }})
                     </td>
                 </tr>
                 <tr>
                     <td>From:</td>
                     <td class=monospace>
-                        <router-link v-if=tx.from v-bind:to='fragApi + "/address/" + tx.from.hash'>{{ tx.from.hash }}</router-link>
+                        <router-link v-if=tx.from v-bind:to='fragApi + "/address/" + tx.from.hash'>{{ tx.from.hash }}
+                        </router-link>
                     </td>
                 </tr>
                 <tr>
                     <td>To:</td>
                     <td class=monospace>
-                        <router-link v-if=tx.to v-bind:to='fragApi + "/address/" + tx.to.hash'>{{ tx.to.hash }}</router-link>
+                        <router-link v-if=tx.to v-bind:to='fragApi + "/address/" + tx.to.hash'>{{ tx.to.hash }}
+                        </router-link>
                     </td>
                 </tr>
                 <tr>
@@ -96,17 +103,23 @@
                 </tr>
                 <tr>
                     <td>Transaction Type:</td>
-                    <td v-if=" tx.type == 'deploy' ">{{ txType }} ( contract address: <router-link v-if=tx.to v-bind:to='fragApi + "/address/" + tx.contractAddress'> {{tx.contractAddress}} </router-link>)</td>
+                    <td v-if=" tx.type == 'deploy' ">{{ txType }} ( contract address:
+                        <router-link v-if=tx.to v-bind:to='fragApi + "/address/" + tx.contractAddress'>
+                            {{tx.contractAddress}}
+                        </router-link>
+                        )
+                    </td>
                     <td v-else>{{ txType }}</td>
                 </tr>
                 <tr>
                     <td>Payload Data:</td>
-                    <td v-if="tx.type == 'binary'" class=text>
+                    <!--v-if="tx.type == 'binary'"-->
+                    <td class=text style="word-wrap:break-word;word-break:break-all;">
                         {{ tx.data }}
                     </td>
-                    <td v-else class=code>
-                        <pre><code class=language-javascript v-html=formatCode></code></pre>
-                    </td>
+                    <!--<td v-else class=code>-->
+                    <!--<pre><code class=language-javascript v-html=formatCode></code></pre>-->
+                    <!--</td>-->
                 </tr>
                 <tr>
                     <td></td>
@@ -156,11 +169,16 @@
                 // type=delegate    【前端显示：dpos delegate】
                 if (this.tx) switch (this.tx.type) {
                     default:
-                    case "binary": return "normal";
-                    case "deploy": return "deploy contract";
-                    case "call": return "call contract";
-                    case "candidate": return "dpos candidate";
-                    case "delegate": return "dpos delegate";
+                    case "binary":
+                        return "normal";
+                    case "deploy":
+                        return "deploy contract";
+                    case "call":
+                        return "call contract";
+                    case "candidate":
+                        return "dpos candidate";
+                    case "delegate":
+                        return "dpos delegate";
                 } else
                     return "";
             },
